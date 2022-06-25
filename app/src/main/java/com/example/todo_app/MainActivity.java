@@ -18,6 +18,9 @@ import com.example.todo_app.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -88,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지났으면 Toast Show
             // 2000 milliseconds = 2 seconds
+
+            SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Log.d(getClass().getName(),
+                    "KJH : " + "System.currentTimeMillis() : " + timeformat.format(new Date(System.currentTimeMillis())) + "\n"
+                            + "backKeyPressedTime : " + timeformat.format(new Date(backKeyPressedTime)));
+
             if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
                 backKeyPressedTime = System.currentTimeMillis();
                 toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
@@ -97,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
             // 현재 표시된 Toast 취소
-            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+//            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            else{
                 finish();
                 toast.cancel();
             }
