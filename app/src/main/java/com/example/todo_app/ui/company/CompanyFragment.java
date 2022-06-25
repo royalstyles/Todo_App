@@ -1,6 +1,7 @@
 package com.example.todo_app.ui.company;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class CompanyFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         CompanyViewModel companyViewModel =
                 new ViewModelProvider(this).get(CompanyViewModel.class);
 
@@ -31,6 +33,7 @@ public class CompanyFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroyView();
         binding = null;
     }
