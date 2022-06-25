@@ -30,10 +30,46 @@
         <menu android:checkableBehavior="single">
             <item
                 android:id="@+id/sub_menu_item3"
-                android:title="@string/submenu_history" />
+                android:title="@string/submenu_item03" />
             <item
                 android:id="@+id/sub_menu_item4"
-                android:title="@string/submenu_about" />
+                android:title="@string/submenu_item04" />
+            <item
+                android:id="@+id/sub_menu_item5"
+                android:title="@string/submenu_item05" />
+            <item
+                android:id="@+id/sub_menu_item6"
+                android:title="@string/submenu_item06" />
+            <item
+                android:id="@+id/sub_menu_item7"
+                android:title="@string/submenu_item07" />
+            <item
+                android:id="@+id/sub_menu_item8"
+                android:title="@string/submenu_item08" />
+            <item
+                android:id="@+id/sub_menu_item9"
+                android:title="@string/submenu_item09" />
+            <item
+                android:id="@+id/sub_menu_item10"
+                android:title="@string/submenu_item10" />
+            <item
+                android:id="@+id/sub_menu_item11"
+                android:title="@string/submenu_item11" />
+            <item
+                android:id="@+id/sub_menu_item12"
+                android:title="@string/submenu_item12" />
+            <item
+                android:id="@+id/sub_menu_item13"
+                android:title="@string/submenu_item13" />
+            <item
+                android:id="@+id/sub_menu_item14"
+                android:title="@string/submenu_item14" />
+            <item
+                android:id="@+id/sub_menu_item15"
+                android:title="@string/submenu_item15" />
+            <item
+                android:id="@+id/sub_menu_item16"
+                android:title="@string/submenu_item16" />
         </menu>
     </item>
 </menu>

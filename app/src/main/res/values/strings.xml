@@ -13,4 +13,20 @@
 
     <string name="submenu_about">About</string>
     <string name="submenu_history">History</string>
+    <string name="submenu_item01">SubItem01</string>
+    <string name="submenu_item02">SubItem02</string>
+    <string name="submenu_item03">SubItem03</string>
+    <string name="submenu_item04">SubItem04</string>
+    <string name="submenu_item05">SubItem05</string>
+    <string name="submenu_item06">SubItem06</string>
+    <string name="submenu_item07">SubItem07</string>
+    <string name="submenu_item08">SubItem08</string>
+    <string name="submenu_item09">SubItem09</string>
+    <string name="submenu_item10">SubItem10</string>
+    <string name="submenu_item11">SubItem11</string>
+    <string name="submenu_item12">SubItem12</string>
+    <string name="submenu_item13">SubItem13</string>
+    <string name="submenu_item14">SubItem14</string>
+    <string name="submenu_item15">SubItem15</string>
+    <string name="submenu_item16">SubItem16</string>
 </resources>
