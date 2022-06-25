@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName()
+                + "SplashActivity.flag : " + SplashActivity.flag);
 
         super.onCreate(savedInstanceState);
 
@@ -59,6 +61,44 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        SplashActivity.flag = true;
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onRestart();
     }
 
     @Override
@@ -85,12 +125,12 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawers();
         }else {
-            // 기존 뒤로가기 버튼의 기능을 막기위해 주석처리 또는 삭제
-            // super.onBackPressed();
-
-            // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
-            // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지났으면 Toast Show
-            // 2000 milliseconds = 2 seconds
+//             기존 뒤로가기 버튼의 기능을 막기위해 주석처리 또는 삭제
+//             super.onBackPressed();
+//
+//             마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
+//             마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지났으면 Toast Show
+//             2000 milliseconds = 2 seconds
 
             SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Log.d(getClass().getName(),
@@ -110,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             else{
                 finish();
                 toast.cancel();
+                moveTaskToBack(true);
             }
         }
     }
