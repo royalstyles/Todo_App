@@ -1,4 +1,4 @@
-package com.example.todo_app;
+package com.example.todo_app.ui.company;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.todo_app.R;
 
 import java.util.ArrayList;
 

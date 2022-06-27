@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +21,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.todo_app.MySingleton;
-import com.example.todo_app.News;
-import com.example.todo_app.NewsItemClicked;
-import com.example.todo_app.NewsListAdapter;
 import com.example.todo_app.R;
 import com.example.todo_app.databinding.FragmentCompanyBinding;
 
