@@ -42,13 +42,13 @@ public class CompanyFragment extends Fragment implements NewsItemClicked {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        CompanyViewModel companyViewModel = new ViewModelProvider(this).get(CompanyViewModel.class);
-
-        //        final TextView textView = binding.textCompany;
-//        companyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        CompanyViewModel companyViewModel = new ViewModelProvider(this).get(CompanyViewModel.class);
 
         binding = FragmentCompanyBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+//        final TextView textView = binding.textCompany;
+//        companyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         recyclerView = root.findViewById(R.id.company_recylerView);
         fetch_date();

@@ -5,7 +5,7 @@
     <string name="nav_header_title">타이틀</string>
     <string name="nav_header_subtitle">메세지</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">권한설정</string>
     <string name="action_kakaomap">Kakao Map</string>
 
     <string name="menu_company">Company</string>
@@ -30,4 +30,15 @@
     <string name="submenu_item14">SubItem14</string>
     <string name="submenu_item15">SubItem15</string>
     <string name="submenu_item16">SubItem16</string>
+
+    <string name="Alert_Title_Notice">알림</string>
+
+    <string name="Alert_Button_Positive">OK</string>
+    <string name="Alert_Button_Negative">Cancle</string>
+
+    <string name="checkGPSService_ON">GPS를 켜주세요.</string>
+    <string name="checkNetworkService_ON">네트워크 또는 Wifi를 켜주세요.</string>
+    <string name="checkPermission_ON">권한을 허용해 주세요. \n권한설정은 상단에 있습니다.</string>
+    <string name="checkPermissionLOCATION_ON">정확한 위치권한을 허용해 주세요. \n\nOK를 누루면 권한설정 화면으로 넘어갑니다.</string>
+
 </resources>

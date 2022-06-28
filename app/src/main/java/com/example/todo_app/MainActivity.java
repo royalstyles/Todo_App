@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,10 +30,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.todo_app.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.kakao.kakaolink.KakaoLink;
-import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
 import com.kakao.sdk.common.KakaoSdk;
-import com.kakao.util.KakaoParameterException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -48,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     // 첫 번째 뒤로가기 버튼을 누를때 표시
     private Toast toast;
+    // 권한 클래스를 선언
+    private PermissionSupport permissionSupport;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
@@ -106,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Kakao SDK 초기화
         KakaoSdk.init(this, "{NATIVE_APP_KEY}");
+
+        // 권한 객체 생성
+        permissionSupport = new PermissionSupport(this, this);
+        // 권한 체크
+        permissionSupport.checkAll();
+
     }
 
     @Override
@@ -236,6 +244,23 @@ public class MainActivity extends AppCompatActivity {
             } catch (NoSuchAlgorithmException e) {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
+        }
+    }
+
+    // Request Permission에 대한 결과 값을 받는다.
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Log.d(getClass().getName(), "requestCode : " + requestCode + "\n"
+                + "permissions.length  : " + permissions.length + "\n"
+                + "permissions : " + permissions[0] + "\n"
+                + "grantResults.length : " + grantResults.length + "\n"
+                + "grantResults : " + grantResults[0] + "\n");
+
+        if (!permissionSupport.PermissionsResult(requestCode, permissions, grantResults)){
+            permissionSupport.checkPermissionRequest();
         }
     }
 }
