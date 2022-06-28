@@ -71,6 +71,7 @@ public class CompanyFragment extends Fragment implements NewsItemClicked {
         Log.d(getClass().getName(), "fetch_date()");
 
         String url = "https://newsapi.org/v2/everything?q=apple&from=" + getDate() + "&to=" + getDate() + "&sortBy=popularity&apiKey=63c99fa5e438467189add97cafe6145f";
+//        String url = "https://newsapi.org/v2/everything?q=apple&from=2022-06-27&to=2022-06-27&sortBy=popularity&apiKey=63c99fa5e438467189add97cafe6145f";
 //        String url = "https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=f25bd7cf2bf341fa8db0f6f426364335";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -115,7 +116,7 @@ public class CompanyFragment extends Fragment implements NewsItemClicked {
     // 현재 시간을 "yyyy-MM-dd"로 표시하는 메소드
     private String getDate() {
         long now = System.currentTimeMillis();
-        Date date = new Date(now - 1);
+        Date date = new Date(now - 3);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String getDate = dateFormat.format(date);
 

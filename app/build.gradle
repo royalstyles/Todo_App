@@ -57,4 +57,17 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'androidx.browser:browser:1.4.0'
+
+    // 카카오 맵
+    implementation files('libs/libDaumMapAndroid.jar')
+
+    // Kakao 관련 라이브러리
+    implementation "com.kakao.sdk:v2-user-rx:2.10.0" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-talk-rx:2.10.0" // 친구, 메시지(카카오톡)
+    implementation "com.kakao.sdk:v2-story-rx:2.10.0" // 카카오스토리
+    implementation "com.kakao.sdk:v2-link-rx:2.10.0" // 메시지(카카오톡 공유)
+    implementation "com.kakao.sdk:v2-navi:2.10.0" // 카카오내비
+    implementation "com.kakao.sdk:v2-friend-rx:2.10.0" // 카카오톡 소셜 피커, 리소스 번들 파일 포함
+
+    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
 }

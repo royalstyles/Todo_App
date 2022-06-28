@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.todo_app.R;
 import com.example.todo_app.databinding.FragmentSlideshowBinding;
+
+import net.daum.mf.map.api.MapView;
 
 public class SlideshowFragment extends Fragment {
 
@@ -25,6 +28,11 @@ public class SlideshowFragment extends Fragment {
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        MapView mapView = new MapView(getActivity());
+
+        ViewGroup mapViewContainer = root.findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
 
         final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

@@ -1,12 +1,15 @@
 package com.example.todo_app;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -26,10 +28,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.todo_app.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.sdk.common.KakaoSdk;
+import com.kakao.util.KakaoParameterException;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +64,28 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+
+                // String으로 받아서 넣기
+                String sendMessage = "이렇게 스트링으로 만들어서 넣어주면 됩니다.";
+                intent.putExtra(Intent.EXTRA_TEXT, sendMessage);
+
+                Intent shareIntent = Intent.createChooser(intent, "share");
+                startActivity(shareIntent);
+
+//                try {
+//                    KakaoLink kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
+//                    KakaoTalkLinkMessageBuilder messageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+//
+//                    messageBuilder.addText("카카오톡으로 공유해요.");
+//                    messageBuilder.addAppButton("앱 실행하기");
+//                    kakaoLink.sendMessage(messageBuilder,getApplicationContext());
+//                } catch (KakaoParameterException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -73,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         SplashActivity.flag = true;
+
+        getHashKey();
+
+        // Kakao SDK 초기화
+        KakaoSdk.init(this, "{NATIVE_APP_KEY}");
     }
 
     @Override
@@ -181,6 +214,27 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 toast.cancel();
                 moveTaskToBack(true);
+            }
+        }
+    }
+
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
     }
