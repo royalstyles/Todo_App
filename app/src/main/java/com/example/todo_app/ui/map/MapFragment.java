@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.slideshow;
+package com.example.todo_app.ui.map;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,21 +12,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todo_app.R;
-import com.example.todo_app.databinding.FragmentSlideshowBinding;
+import com.example.todo_app.databinding.FragmentMapBinding;
 
 import net.daum.mf.map.api.MapView;
 
-public class SlideshowFragment extends Fragment {
+public class MapFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentMapBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        MapViewModel slideshowViewModel =
+                new ViewModelProvider(this).get(MapViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         MapView mapView = new MapView(getActivity());
