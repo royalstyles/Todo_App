@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Todo_App/app/src/main/res/drawable/ic_menu_camera.xml" value="0.146" />
         <entry key="..\:/AndroidStudioProjects/Todo_App/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.146" />
         <entry key="..\:/AndroidStudioProjects/Todo_App/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.146" />
