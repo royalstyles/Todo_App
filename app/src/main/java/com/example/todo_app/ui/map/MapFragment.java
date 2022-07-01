@@ -148,6 +148,12 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
     }
 
+    private boolean checkLocationServiceStatus() {
+        LocationManager locationManager = (LocationManager) activity.getSystemService(context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
     private void showDialogForLocationServiceSetting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.title_location_service);
@@ -168,14 +174,4 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         });
         builder.create().show();
     }
-
-    private boolean checkLocationServiceStatus() {
-        LocationManager locationManager = (LocationManager) activity.getSystemService(context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-
-
-
 }
