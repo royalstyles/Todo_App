@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                + "SplashActivity.flag : " + SplashActivity.flag);
 
         super.onCreate(savedInstanceState);
 
@@ -95,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_company, R.id.nav_gallery, R.id.nav_slideshow)
+//                R.id.nav_company, R.id.nav_gallery, R.id.nav_map)
+                R.id.nav_map, R.id.nav_gallery, R.id.nav_company)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

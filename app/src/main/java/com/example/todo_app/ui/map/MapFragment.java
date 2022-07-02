@@ -27,6 +27,8 @@ import net.daum.mf.map.api.MapView;
 
 public class MapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
 
+    // 1. kakao map api를 이용하기 위해선 keyHash 를 등록해준다.
+
     private FragmentMapBinding binding;
     private View root;
 
@@ -42,6 +44,7 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         activity = getActivity();
         context = getContext();
     }
@@ -83,7 +86,7 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         mapView = new MapView(activity);
 
         // 중심점 변경
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 //        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 
         ViewGroup mapViewContainer = root.findViewById(R.id.map_view);
