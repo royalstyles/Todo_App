@@ -6,7 +6,7 @@
     <string name="nav_header_subtitle">메세지</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">권한설정</string>
-    <string name="action_kakaomap">Kakao Map</string>
+    <string name="action_login">계정설정</string>
 
     <string name="menu_company">Company</string>
     <string name="menu_gallery">Gallery</string>
@@ -43,5 +43,14 @@
 
     <string name="title_location_service">위치</string>
     <string name="message_location_service">위치를 켜주세요</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 
 </resources>

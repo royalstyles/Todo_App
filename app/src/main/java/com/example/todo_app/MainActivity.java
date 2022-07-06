@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.todo_app.databinding.ActivityMainBinding;
+import com.example.todo_app.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.sdk.common.KakaoSdk;
 
@@ -106,12 +108,24 @@ public class MainActivity extends AppCompatActivity {
         getHashKey();
 
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "{NATIVE_APP_KEY}");
+//        KakaoSdk.init(this, "{NATIVE_APP_KEY}");
 
         // 권한 객체 생성
         permissionSupport = new PermissionSupport(this, this);
         // 권한 체크
         permissionSupport.checkAll();
+
+        View headerView = navigationView.getHeaderView(0);
+
+        ImageView img_nav_header = headerView.findViewById(R.id.img_nav_header);
+        img_nav_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

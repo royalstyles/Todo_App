@@ -86,7 +86,7 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         mapView = new MapView(activity);
 
         // 중심점 변경
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
+//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 //        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 
         ViewGroup mapViewContainer = root.findViewById(R.id.map_view);
