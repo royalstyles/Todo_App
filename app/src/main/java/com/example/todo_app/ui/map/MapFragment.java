@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -17,18 +18,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.util.Util;
 import com.example.todo_app.PermissionSupport;
 import com.example.todo_app.R;
 import com.example.todo_app.databinding.FragmentMapBinding;
+import com.google.android.gms.location.LocationListener;
 
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
 
 public class MapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
 
-    // 1. kakao map api를 이용하기 위해선 keyHash 를 등록해준다.
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int PERMISSIONS_REQUEST_ACCESS_CALL_PHONE = 2;
 
+    // 1. kakao map api를 이용하기 위해선 keyHash 를 등록해준다.
     private FragmentMapBinding binding;
     private View root;
 
@@ -37,7 +44,15 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
 
     private Activity activity;
     private Context context;
+    private LocationManager lm;
     private MapView mapView;
+
+    public double longitude; //경도
+    public double latitude; //위도
+    public double altitude; //고도
+    public float accuracy; //정확도
+    public String provider; //위치제공자
+    public String currentLocation; // 그래서 최종 위치
 
     private static final int GPS_ENABLE_REQUEST_CODE = 1000;
 
@@ -67,7 +82,7 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         permissionSupport.checkAll();
 
         // 맵뷰 띄우기
-        gotoMap();
+        initMap();
 
         return root;
     }
@@ -80,30 +95,44 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
     }
 
     //맵 뷰를 띄워준다.
-    private void gotoMap(){
+    private void initMap(){
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-        mapView = new MapView(activity);
+        mapView = new MapView(context);
 
         // 중심점 변경
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 //        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
 
         ViewGroup mapViewContainer = root.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
-        mapView.setCurrentLocationEventListener(this);
+        // Location 제공자에서 정보를 얻어오기(GPS)
+        // 1. Location을 사용하기 위한 권한을 얻어와야한다 AndroidManifest.xml
+        //     ACCESS_FINE_LOCATION : NETWORK_PROVIDER, GPS_PROVIDER
+        //     ACCESS_COARSE_LOCATION : NETWORK_PROVIDER
+        // 2. LocationManager 를 통해서 원하는 제공자의 리스너 등록
+        // 3. GPS 는 에뮬레이터에서는 기본적으로 동작하지 않는다
+        // 4. 실내에서는 GPS_PROVIDER 를 요청해도 응답이 없다.  특별한 처리를 안하면 아무리 시간이 지나도
+        //    응답이 없다.
+        //    해결방법은
+        //     ① 타이머를 설정하여 GPS_PROVIDER 에서 일정시간 응답이 없는 경우 NETWORK_PROVIDER로 전환
+        //     ② 혹은, 둘다 한꺼번헤 호출하여 들어오는 값을 사용하는 방식.
+        //출처: http://bitsoul.tistory.com/131 [Happy Programmer~]
 
-        // 줌 레벨 변경
-        mapView.setZoomLevel(7, true);
-
-        // 현재 위치
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        // LocationManager 객체를 얻어온다
+        // getPermission();
 
         // GPS 활성화 요청
         if (!checkLocationServiceStatus()) {
             showDialogForLocationServiceSetting();
         }
+
+        lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
+        // 위치정보를 얻는다
+        getLocation();
+
+        mapView.setCurrentLocationEventListener(this);
 
         // 줌 인
         mapView.zoomIn(true);
@@ -177,4 +206,47 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         });
         builder.create().show();
     }
+
+    private void getLocation(){
+        try{
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            longitude = location.getLongitude(); // 경도
+            latitude = location.getLatitude(); // 위도
+            altitude = location.getAltitude(); //고도
+            accuracy = location.getAccuracy(); // 정확도
+            provider = location.getProvider(); // 위치제공자
+
+            Log.d(getClass().getName(), "latitude : " + latitude
+                    + "\nlongitude : " + longitude
+                    + "\naltitude : " + altitude
+                    + "\naccuracy : " + accuracy
+                    + "\nprovider : " + provider);
+
+            // 중심점 변경  - 즐겨 찾기에서 받아 오거나 자신의 현위치를 받아서 설정하자.
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+
+            // 줌 레벨 변경
+            mapView.setZoomLevel(2, true);
+
+            // 마커 찍기
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
+            MapPOIItem mapPOIItem = new MapPOIItem();
+            mapPOIItem.setItemName("시작 위치");
+            mapPOIItem.setTag(0);
+            mapPOIItem.setMapPoint(mapPoint);
+            mapPOIItem.setMarkerType(MapPOIItem.MarkerType.BluePin);
+            mapPOIItem.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
+            mapView.addPOIItem(mapPOIItem);
+
+            // 현재 위치
+            // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+
+        }catch (SecurityException ex){
+
+        }
+    }
+
+
 }
