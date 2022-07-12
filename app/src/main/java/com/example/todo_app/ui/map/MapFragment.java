@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,12 +27,17 @@ import com.example.todo_app.R;
 import com.example.todo_app.databinding.FragmentMapBinding;
 import com.google.android.gms.location.LocationListener;
 
+import net.daum.android.map.MapController;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
 
-public class MapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class MapFragment extends Fragment implements MapView.MapViewEventListener, MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener, MapView.POIItemEventListener {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private static final int PERMISSIONS_REQUEST_ACCESS_CALL_PHONE = 2;
@@ -84,6 +91,9 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         // 맵뷰 띄우기
         initMap();
 
+        // 위치정보를 얻는다
+        getLocation();
+
         return root;
     }
 
@@ -129,15 +139,12 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
 
         lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
-        // 위치정보를 얻는다
-        getLocation();
-
+        mapView.setMapViewEventListener(this);
+        mapView.setPOIItemEventListener(this);
         mapView.setCurrentLocationEventListener(this);
 
-        // 줌 인
-        mapView.zoomIn(true);
-        // 줌 아웃
-        mapView.zoomOut(true);
+        mapView.setMapType(MapView.MapType.Hybrid);
+        mapView.setHDMapTileEnabled(true);
     }
 
     @Override
@@ -154,9 +161,9 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
 
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
-        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-        Log.d(getClass().getName(), String.format("(%f, %f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
+//        Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+//        Log.d(getClass().getName(), String.format("(%f, %f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
     }
 
     @Override
@@ -227,12 +234,13 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
 
             // 줌 레벨 변경
-            mapView.setZoomLevel(2, true);
+            mapView.setZoomLevel(1, true);
 
             // 마커 찍기
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
             MapPOIItem mapPOIItem = new MapPOIItem();
-            mapPOIItem.setItemName("시작 위치");
+//            mapPOIItem.setItemName("시작 위치");
+            mapPOIItem.setItemName(getAddressString(context, latitude, longitude));
             mapPOIItem.setTag(0);
             mapPOIItem.setMapPoint(mapPoint);
             mapPOIItem.setMarkerType(MapPOIItem.MarkerType.BluePin);
@@ -248,5 +256,99 @@ public class MapFragment extends Fragment implements MapView.CurrentLocationEven
         }
     }
 
+    private String getAddressString(Context context, double Latitude, double Longitude) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(context, Locale.KOREA);
+        List<Address> addresses;
 
+        try {
+            addresses = geocoder.getFromLocation(Latitude, Longitude, 20);
+            if (addresses != null && addresses.size() > 0) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+                Log.d("MyCurrentloctionaddress", strReturnedAddress.toString());
+            } else {
+                Log.d("MyCurrentloctionaddress", "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("MyCurrentloctionaddress", "Canont get Address!");
+        }
+
+        // "대한민국 " 글자 지워버림
+        //strAdd = strAdd.substring(5);
+
+        return strAdd;
+    }
+
+
+    @Override
+    public void onMapViewInitialized(MapView mapView) {
+
+    }
+
+    @Override
+    public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+
+    }
+
+    @Override
+    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
 }
