@@ -183,7 +183,7 @@ public class MapFragment extends Fragment implements MapView.MapViewEventListene
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
     }
 
     private boolean checkLocationServiceStatus() {
