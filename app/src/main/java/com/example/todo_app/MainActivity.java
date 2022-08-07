@@ -1,5 +1,6 @@
 package com.example.todo_app;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -44,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private NavigationView mNavigationView;
-    private NavController mNavController;
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private long backKeyPressedTime = 0;
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
-        mNavigationView = binding.navView;
+        NavigationView mNavigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -101,13 +100,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.id.nav_map, R.id.nav_gallery, R.id.nav_company)
                 .setOpenableLayout(drawer)
                 .build();
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
 
         // 네비게이션뷰 설정
         if (mNavigationView != null) {
-            mNavigationView.setNavigationItemSelectedListener(this);
+//            mNavigationView.setNavigationItemSelectedListener(this);
         }
 
         SplashActivity.flag = true;
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         getMenuInflater().inflate(R.menu.main, menu);
@@ -222,14 +221,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_settings:
-                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
-                    intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    break;
-            }
+        if (item.getItemId() == R.id.action_settings) {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -248,16 +245,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //             마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지났으면 Toast Show
 //             2000 milliseconds = 2 seconds
 
-            SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Log.d(getClass().getName(),
                     "KJH : " + "System.currentTimeMillis() : " + timeformat.format(new Date(System.currentTimeMillis())) + "\n"
                             + "backKeyPressedTime : " + timeformat.format(new Date(backKeyPressedTime)));
 
             if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
                 backKeyPressedTime = System.currentTimeMillis();
-                toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+                toast = Toast.makeText(this, "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
                 toast.show();
-                return;
             }
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
             // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
@@ -271,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @SuppressLint("PackageManagerGetSignatures")
     private void getHashKey(){
         PackageInfo packageInfo = null;
         try {
