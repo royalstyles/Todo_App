@@ -92,6 +92,7 @@ public class MapFragment extends Fragment implements MapView.MapViewEventListene
         initMap();
 
         // 위치정보를 얻는다
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
         getLocation();
 
         return root;

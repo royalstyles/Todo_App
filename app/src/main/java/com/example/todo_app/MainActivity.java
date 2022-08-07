@@ -40,10 +40,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private NavigationView mNavigationView;
+    private NavController mNavController;
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private long backKeyPressedTime = 0;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
+        mNavigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -99,9 +101,14 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_map, R.id.nav_gallery, R.id.nav_company)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(mNavigationView, mNavController);
+
+        // 네비게이션뷰 설정
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
 
         SplashActivity.flag = true;
 
@@ -115,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         // 권한 체크
         permissionSupport.checkAll();
 
-        View headerView = navigationView.getHeaderView(0);
+        View headerView = mNavigationView.getHeaderView(0);
 
         ImageView img_nav_header = headerView.findViewById(R.id.img_nav_header);
         img_nav_header.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +193,31 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_company) {
+            Toast.makeText(MainActivity.this, "회사", Toast.LENGTH_SHORT).show();
+            binding.appBarMain.fab.setVisibility(View.GONE);
+        } else if (id == R.id.nav_gallery) {
+            Toast.makeText(MainActivity.this, "갤러리", Toast.LENGTH_SHORT).show();
+            binding.appBarMain.fab.setVisibility(View.VISIBLE);
+        } else if (id == R.id.nav_map) {
+            Toast.makeText(MainActivity.this, "지도", Toast.LENGTH_SHORT).show();
+            binding.appBarMain.fab.setVisibility(View.VISIBLE);
+        } else if (id == R.id.sub_menu_item1) {
+            Toast.makeText(MainActivity.this, "서브01", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.sub_menu_item2) {
+            Toast.makeText(MainActivity.this, "서브02", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.sub_menu_item3) {
+            Toast.makeText(MainActivity.this, "서브03", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
     }
 
     @Override
