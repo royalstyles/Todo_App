@@ -143,7 +143,6 @@ public class MapFragment extends Fragment implements MapView.MapViewEventListene
         mapView.setPOIItemEventListener(this);
         mapView.setCurrentLocationEventListener(this);
 
-        mapView.setMapType(MapView.MapType.Hybrid);
         mapView.setHDMapTileEnabled(true);
     }
 
