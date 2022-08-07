@@ -2,16 +2,17 @@
     <!-- Base application theme. -->
     <style name="Theme.Todo_App" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/DeepSkyBlue</item>
+        <item name="colorPrimary">@color/DeepSkyBlue</item> <!-- 액션바 배경색 -->
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/transparent</item> <!-- 상태바 배경색 설정 -->
+        <item name="android:windowTranslucentStatus">true</item> <!-- 상태바를 투명으로 설정하려면 true로 설정하세요. -->
         <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 </resources>
