@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.map;
+package com.jhpj.todo_app.ui.map;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.company;
+package com.jhpj.todo_app.ui.company;
 
 public class News {
     public String title;

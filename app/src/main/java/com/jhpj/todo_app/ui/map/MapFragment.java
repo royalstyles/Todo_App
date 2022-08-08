@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.map;
+package com.jhpj.todo_app.ui.map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,19 +21,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.util.Util;
-import com.example.todo_app.PermissionSupport;
-import com.example.todo_app.R;
-import com.example.todo_app.databinding.FragmentMapBinding;
-import com.google.android.gms.location.LocationListener;
+import com.jhpj.todo_app.PermissionSupport;
+import com.jhpj.todo_app.R;
+import com.jhpj.todo_app.databinding.FragmentMapBinding;
 
-import net.daum.android.map.MapController;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 

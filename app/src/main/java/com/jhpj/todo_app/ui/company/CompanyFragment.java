@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.company;
+package com.jhpj.todo_app.ui.company;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.todo_app.R;
-import com.example.todo_app.databinding.FragmentCompanyBinding;
+import com.jhpj.todo_app.R;
+import com.jhpj.todo_app.databinding.FragmentCompanyBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.example.todo_app;
+package com.jhpj.todo_app;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,10 +30,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.todo_app.databinding.ActivityMainBinding;
-import com.example.todo_app.ui.login.LoginActivity;
+import com.jhpj.todo_app.R;
+import com.jhpj.todo_app.databinding.ActivityMainBinding;
+import com.jhpj.todo_app.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
-import com.kakao.sdk.common.KakaoSdk;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

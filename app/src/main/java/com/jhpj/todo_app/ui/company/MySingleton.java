@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.company;
+package com.jhpj.todo_app.ui.company;
 
 import android.content.Context;
 import android.util.Log;

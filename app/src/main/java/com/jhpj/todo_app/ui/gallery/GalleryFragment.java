@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.gallery;
+package com.jhpj.todo_app.ui.gallery;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.todo_app.databinding.FragmentGalleryBinding;
+import com.jhpj.todo_app.databinding.FragmentGalleryBinding;
 
 public class GalleryFragment extends Fragment {
 

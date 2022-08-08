@@ -1,10 +1,10 @@
-package com.example.todo_app.ui.login;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.jhpj.todo_app.ui.login;
 
 import android.os.Bundle;
 
-import com.example.todo_app.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.jhpj.todo_app.R;
 
 public class LoginActivity extends AppCompatActivity {
 

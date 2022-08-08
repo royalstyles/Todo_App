@@ -1,4 +1,4 @@
-package com.example.todo_app.ui.company;
+package com.jhpj.todo_app.ui.gallery;
 
 import android.util.Log;
 
@@ -6,14 +6,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CompanyViewModel extends ViewModel {
+public class GalleryViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public CompanyViewModel() {
+    public GalleryViewModel() {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         mText = new MutableLiveData<>();
-        mText.setValue("This is Company fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

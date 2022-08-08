@@ -1,4 +1,4 @@
-package com.example.todo_app;
+package com.jhpj.todo_app;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import com.jhpj.todo_app.R;
 
 import java.util.ArrayList;
 import java.util.List;
