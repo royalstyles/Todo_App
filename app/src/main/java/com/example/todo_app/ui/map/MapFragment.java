@@ -218,6 +218,11 @@ public class MapFragment extends Fragment implements MapView.MapViewEventListene
         try{
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+            // GPS를 받아오지 못한다면 NETWORK를 통해 위치 정보를 가져오도록 한다(대신 정확도는 떨어짐)
+            if (location == null){
+                location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+
             longitude = location.getLongitude(); // 경도
             latitude = location.getLatitude(); // 위도
             altitude = location.getAltitude(); //고도
