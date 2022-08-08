@@ -22,7 +22,7 @@ import com.jhpj.todo_app.R;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
-    public void onNewToken(String token) {
+    public void onNewToken(@NonNull String token) {
         Log.d("FCM Log", "Refreshed token: " + token);
     }
 
