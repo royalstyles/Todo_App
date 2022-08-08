@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:781990727246:android:3e964c2e1d8d407f0c3d1f",
+        "mobilesdk_app_id": "1:781990727246:android:8b2b7f7a57ca1eb30c3d1f",
         "android_client_info": {
-          "package_name": "com.jhpj.todo_app"
+          "package_name": "com.jhph.todo_app"
         }
       },
       "oauth_client": [
