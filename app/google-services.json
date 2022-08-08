@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781990727246:android:66df0dd3d254818b0c3d1f",
+        "android_client_info": {
+          "package_name": "com.jhpj.todo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781990727246-d4oc2budf8sm6667nq4m54qj3nivrt5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOKIlYo200MgTTCzOBrFhuzOp3HIHyq20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781990727246-d4oc2budf8sm6667nq4m54qj3nivrt5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
