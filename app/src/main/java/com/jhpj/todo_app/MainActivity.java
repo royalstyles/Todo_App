@@ -100,8 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_company, R.id.nav_gallery, R.id.nav_map)
-                R.id.nav_map, R.id.nav_gallery, R.id.nav_company)
+                R.id.nav_company, R.id.nav_gallery, R.id.nav_map, R.id.nav_movie)
                 .setOpenableLayout(drawer)
                 .build();
         NavController mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -224,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_company) {
             Toast.makeText(MainActivity.this, "회사", Toast.LENGTH_SHORT).show();
             binding.appBarMain.fab.setVisibility(View.GONE);
+        } else if (id == R.id.nav_movie) {
+            Toast.makeText(MainActivity.this, "무비", Toast.LENGTH_SHORT).show();
+            binding.appBarMain.fab.setVisibility(View.VISIBLE);
         } else if (id == R.id.nav_gallery) {
             Toast.makeText(MainActivity.this, "갤러리", Toast.LENGTH_SHORT).show();
             binding.appBarMain.fab.setVisibility(View.VISIBLE);
