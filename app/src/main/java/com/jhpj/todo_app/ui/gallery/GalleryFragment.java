@@ -55,7 +55,7 @@ public class GalleryFragment extends Fragment implements NewsItemClicked {
 //        final TextView textView = binding.textGallery;
 //        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        recyclerView = root.findViewById(R.id.company_recylerView);
+        recyclerView = root.findViewById(R.id.gallery_recylerView);
         fetch_date();
 
         mAdapter = new NewsListAdapter(this);
