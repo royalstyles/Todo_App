@@ -23,7 +23,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     @NonNull
     @Override
     public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies , parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies2 , parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -51,7 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void setItem(DailyBoxOfficeList item){
             rank.setText(item.getRank());
             movieNm.setText(item.getMovieNm());
-            openDt.setText(item.getOpenDt());
+            openDt.setText("개봉일 : " + item.getOpenDt());
         }
     }
 }
