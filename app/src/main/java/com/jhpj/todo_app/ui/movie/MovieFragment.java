@@ -16,13 +16,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jhpj.todo_app.R;
 import com.jhpj.todo_app.databinding.FragmentMovieBinding;
-import com.jhpj.todo_app.ui.company.NewsListAdapter;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieFragment extends Fragment {
 
     private FragmentMovieBinding binding;
-    RecyclerView recyclerView;
-    NewsListAdapter mAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+
+    private RetrofitClient retrofitClient;
+    private RetrofitInterface retrofitInterface;
+
+    private String API_KEY = "e6ee496f6201834eaeec2b07233ef717";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,10 +47,30 @@ public class MovieFragment extends Fragment {
         movieViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         recyclerView = root.findViewById(R.id.movie_recylerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
+        retrofitClient = RetrofitClient.getInstance();
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d("retrofit", getDate());
+
+        retrofitInterface.getBoxOffice(API_KEY, "20221003").enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                Result result = response.body();
+                BoxOfficeResult boxOfficeResult = result.getBoxOfficeResult();
+                Log.d("retrofit", "Data fetch success");
+                mAdapter = new MovieAdapter(boxOfficeResult.getDailyBoxOfficeList());
+
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Log.d("retrofit", t.getMessage());
+            }
+        });
 
         return root;
     }
@@ -49,5 +80,14 @@ public class MovieFragment extends Fragment {
         Log.d(getClass().getName(), "KJH : " + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroyView();
         binding = null;
+    }
+
+    private String getDate() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now - 4);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String getDate = dateFormat.format(date);
+
+        return getDate;
     }
 }
