@@ -3,23 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_map">
+    app:startDestination="@+id/nav_movie">
 
     <fragment
         android:id="@+id/nav_company"
-        android:name="com.example.todo_app.ui.company.CompanyFragment"
+        android:name="com.jhpj.todo_app.ui.company.CompanyFragment"
         android:label="@string/menu_company"
         tools:layout="@layout/fragment_company" />
-
+    <fragment
+        android:id="@+id/nav_movie"
+        android:name="com.jhpj.todo_app.ui.movie.MovieFragment"
+        android:label="@string/menu_movie"
+        tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.todo_app.ui.gallery.GalleryFragment"
+        android:name="com.jhpj.todo_app.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
-
     <fragment
         android:id="@+id/nav_map"
-        android:name="com.example.todo_app.ui.map.MapFragment"
+        android:name="com.jhpj.todo_app.ui.map.MapFragment"
         android:label="@string/menu_map"
         tools:layout="@layout/fragment_map" />
+
 </navigation>

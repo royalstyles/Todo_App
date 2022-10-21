@@ -9,6 +9,7 @@
     <string name="action_login">계정설정</string>
 
     <string name="menu_company">Company</string>
+    <string name="menu_movie">Movie</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_map">Map</string>
 
@@ -52,5 +53,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
