@@ -29,7 +29,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.todo_app'
+    namespace 'com.jhpj.todo_app'
 }
 
 apply plugin: 'com.android.application'
